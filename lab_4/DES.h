@@ -244,31 +244,34 @@ bitset<64> decrypt(bitset<64> cryptedText, vector<bitset<48>> keys)			//Расшифро
 	decryptedText = IPend(decryptedText);
 	return decryptedText;
 }
-bitset<64> encrypt_DES_CFB(bitset<64> text, bitset<64> IV, vector<bitset<48>> keys)
-{
-	bitset<64> cryptedText;
-	bitset<64> prevBlock = IV; // Предыдущий зашифрованный блок начинается с IV
-	for (int i = 0; i < 16; i++)
-	{
-		cryptedText = encrypt(prevBlock, keys); // Шифруем предыдущий блок
-		prevBlock = cryptedText ^ text; // Применяем XOR с открытым текстом
-		text = cryptedText; // Передаем зашифрованный текст на следующую итерацию
-	}
-	return cryptedText;
-}
-
-
-bitset<64> decrypt_DES_CFB(bitset<64> cryptedText, bitset<64> IV, vector<bitset<48>> keys)
-{
-	bitset<64> decryptedText;
-	bitset<64> prevBlock = IV; // Предыдущий зашифрованный блок начинается с IV
-	for (int i = 0; i < 16; i++)
-	{
-		bitset<64> tempBlock = cryptedText;
-		cryptedText = decrypt(prevBlock, keys); // Шифруем предыдущий блок
-		prevBlock = tempBlock; // Сохраняем зашифрованный блок для следующей итерации
-		decryptedText = cryptedText ^ tempBlock; // Применяем XOR с зашифрованным текстом
-	}
-	return decryptedText;
-}
+//bitset<64> encrypt_DES_CFB(bitset<64> text, bitset<64> IV, vector<bitset<64>> keys)
+//{
+//    bitset<64> cryptedText;
+//    bitset<64> prevBlock = IV; // Предыдущий зашифрованный блок начинается с IV
+//    for (int i = 0; i < 16; i++)
+//    {
+//        cryptedText = encrypt(prevBlock, keys); // Шифруем предыдущий блок
+//        prevBlock = cryptedText ^ text; // Применяем XOR с открытым текстом
+//        text = cryptedText; // Передаем зашифрованный текст на следующую итерацию
+//    }
+//    return cryptedText;
+//}
+//
+//
+//bitset decrypt_DES_CFB(bitset<64> cryptedText, bitset<64> IV, vector<bitset<64>> keys)
+//{
+//	bitset<64> decryptedText;
+//	bitset<64> prevBlock = IV; // Предыдущий зашифрованный блок начинается с IV
+//	for (int i = 0; i < 16; i++)
+//	{
+//		bitset<64> tempBlock = cryptedText;
+//		cryptedText = decrypt(prevBlock, keys); // Шифруем предыдущий блок
+//		prevBlock = tempBlock; // Сохраняем зашифрованный блок для следующей итерации
+//
+//		//std::cout<<bitsetToString(tempBlock)<<std::endl;
+//		//std::cout<<bitsetToString(decryptedText)<<std::endl;
+//		decryptedText ^= tempBlock; // Применяем XOR с зашифрованным текстом
+//	}
+//	return decryptedText;
+//}
 
